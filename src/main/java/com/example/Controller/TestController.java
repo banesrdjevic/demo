@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
+@RequestMapping("/v1")
 public class TestController {
     private final TravelResponseService travelResponseService;
 
@@ -25,12 +27,10 @@ public class TestController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public TravelResponse testItOut() throws Exception{
+    @RequestMapping(value = "/travelroutes", method = RequestMethod.GET)
+    public TravelResponse testItOut(@RequestParam("origin") String origin, @RequestParam("destination") String destination) throws Exception{
         GeoApiContext context = new GeoApiContext().setApiKey(System.getenv("GOOGLE_MAPS_API_KEY"));
-
-        return travelResponseService.createTravelResponse(context);
-//        return results;
-
+        System.out.println("The origin is " + origin + " and the destination is " + destination + ".");
+        return travelResponseService.createTravelResponse(context, origin, destination);
     }
 }

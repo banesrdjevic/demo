@@ -27,29 +27,29 @@ public class TravelResponseServiceImpl implements TravelResponseService {
     }
 
     @Override
-    public TravelResponse createTravelResponse(GeoApiContext context) throws Exception{
+    public TravelResponse createTravelResponse(GeoApiContext context, String origin, String destination) throws Exception{
         BicyclingObject bicyclingObject = null;
         DrivingObject drivingObject = null;
         WalkingObject walkingObject = null;
         TransitObject transitObject = null;
 
         try {
-            bicyclingObject = bicyclingService.createBicyclingObject(createNewRequest(context));
+            bicyclingObject = bicyclingService.createBicyclingObject(createNewRequest(context, origin, destination));
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         try {
-            drivingObject = drivingService.createDrivingObject(createNewRequest(context));
+            drivingObject = drivingService.createDrivingObject(createNewRequest(context, origin, destination));
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
         try{
-            walkingObject = walkingService.createWalkingObject(createNewRequest(context));
+            walkingObject = walkingService.createWalkingObject(createNewRequest(context, origin, destination));
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
         try {
-            transitObject = transitService.createTransitObject(createNewRequest(context));
+            transitObject = transitService.createTransitObject(createNewRequest(context, origin, destination));
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -57,10 +57,10 @@ public class TravelResponseServiceImpl implements TravelResponseService {
         return new TravelResponse(bicyclingObject, drivingObject, transitObject, walkingObject);
     }
 
-    private DistanceMatrixApiRequest createNewRequest(GeoApiContext context){
+    private DistanceMatrixApiRequest createNewRequest(GeoApiContext context, String origin, String destination){
         DistanceMatrixApiRequest distanceMatrixApiRequest = new DistanceMatrixApiRequest(context);
-        distanceMatrixApiRequest.origins("Linden Station, Wilmette, IL 60091");
-        distanceMatrixApiRequest.destinations("30 E Huron Street Chicago, IL 60611");
+        distanceMatrixApiRequest.origins(origin);
+        distanceMatrixApiRequest.destinations(destination);
         return distanceMatrixApiRequest;
     }
 }
