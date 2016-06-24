@@ -8,12 +8,17 @@ public class TravelResponse {
     private final DrivingObject drivingObject;
     private final TransitObject transitObject;
     private final WalkingObject walkingObject;
+    private final String origin;
+    private final String destination;
 
-    public TravelResponse(BicyclingObject bicyclingObject, DrivingObject drivingObject, TransitObject transitObject, WalkingObject walkingObject){
+    public TravelResponse(BicyclingObject bicyclingObject, DrivingObject drivingObject, TransitObject transitObject, WalkingObject walkingObject, String origin, String destination) {
+
         this.bicyclingObject = bicyclingObject;
-        this.walkingObject = walkingObject;
-        this.transitObject = transitObject;
         this.drivingObject = drivingObject;
+        this.transitObject = transitObject;
+        this.walkingObject = walkingObject;
+        this.origin = origin;
+        this.destination = destination;
     }
 
     public BicyclingObject getBicyclingObject() {
@@ -30,5 +35,13 @@ public class TravelResponse {
 
     public WalkingObject getWalkingObject() {
         return walkingObject;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDestination() {
+        return destination;
     }
 }

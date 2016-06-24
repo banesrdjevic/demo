@@ -54,7 +54,7 @@ public class TravelResponseServiceImpl implements TravelResponseService {
             System.out.println(e.getMessage());
         }
 
-        return new TravelResponse(bicyclingObject, drivingObject, transitObject, walkingObject);
+        return new TravelResponse(bicyclingObject, drivingObject, transitObject, walkingObject, origin, destination);
     }
 
     private DistanceMatrixApiRequest createNewRequest(GeoApiContext context, String origin, String destination){
